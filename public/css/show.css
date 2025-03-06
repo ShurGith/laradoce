@@ -1,7 +1,8 @@
-
+/*
 figcaption {
     display: none;
 }
+
 
 img {
     width: 300px;
@@ -10,17 +11,17 @@ img {
     border-radius: 15px;
 }
 
+
 .filament-tiptap-grid-builder {
     display: grid;
     margin: auto;
     max-width: 70%;
     margin-top: 25px;
     column-gap: 10px;
-    /*  border: 1px solid lightgray;*/
     items: center;
     justify-content: center;
 }
-
+*/
 .especificaciones {
     display: grid;
     grid-template-rows: min-content 0fr;

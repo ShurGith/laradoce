@@ -98,34 +98,32 @@
                          role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button"
                          tabindex="-1">
                       <!-- Active: "bg-gray-100 outline-none", Not Active: "" -->
-                      <div>
-                        <a href="{{ route('settings.profile') }}" class="block px-4 py-2 text-sm text-gray-700"
+                      
+                      <div class="flex flex-col items-start justify-start gap-2 my-2">
+                        <a href="{{ route('settings.profile') }}" class="flex gap-1 pl-4 text-sm text-gray-700"
                            role="menuitem" tabindex="-1"
-                           id="user-menu-item-0">Your Profile</a>
-                        <a href="#" class="block px-4 py-2 text-sm text-gray-700"
-                           role="menuitem" tabindex="-1"
-                           id="user-menu-item-1">Settings</a>
-                        <form action="https://fila.test/admin/logout" method="post">
+                           id="user-menu-item-0">
+                          <x-heroicon-o-user class="size-5"/>
+                          {{__('Your Profile')}}</a>
+                        <form action="{{route('logout')}}" method="post">
                           @csrf
-                          <button type="submit" style=";"
-                                  class="fi-dropdown-list-item flex w-full items-center gap-2 whitespace-nowrap rounded-md p-2 text-sm transition-colors duration-75 outline-none disabled:pointer-events-none disabled:opacity-70 hover:bg-gray-50 focus-visible:bg-gray-50 dark:hover:bg-white/5 dark:focus-visible:bg-white/5 fi-dropdown-list-item-color-gray fi-color-gray">
-                              <span
-                                class="flex items-center gap-1 fi-dropdown-list-item-label flex-1 truncate text-start text-gray-700 dark:text-gray-200"
-                                style="">
+                          <button type="submit" style=";" class="cursor-pointer flex gap-1 pl-4 text-sm text-gray-700">
+                          <span
+                            class="flex items-center gap-1 fi-dropdown-list-item-label flex-1 truncate text-start text-gray-700 dark:text-gray-200"
+                            style="">
                                 @auth()
-                                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                       stroke-width="1.5" stroke="currentColor" class="size-6">
-                                   <path stroke-linecap="round" stroke-linejoin="round"
-                                         d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9"/></svg>
-                                  Sign out
-                                @endauth
-                                @guest
-                                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                       stroke-width="1.5" stroke="currentColor" class="size-6"><path
-                                      stroke-linecap="round" stroke-linejoin="round"
-                                      d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15M12 9l3 3m0 0-3  3m3-3H2.25"/></svg>
-                                  Signin
-                                @endguest
+                              <x-heroicon-o-arrow-right-end-on-rectangle class="size-5"/>
+                              {{  __('Sign out') }}
+                            @endauth
+                            @guest
+                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                   stroke-width="1.5" stroke="currentColor" class="size-6">
+                                <path
+                                  stroke-linecap="round" stroke-linejoin="round"
+                                  d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15M12 9l3 3m0 0-3  3m3-3H2.25"/>
+                              </svg>
+                              Signin
+                            @endguest
                               </span>
                           </button>
                         </form>
@@ -136,12 +134,7 @@
                           @if ($key != $idioma)
                             <a class="flex gap-2 px-4 py-2 text-sm text-gray-700"
                                href="{{ route('lang', $key) }}">
-                              <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                                   viewBox="0 0 24 24" stroke-width="1.5"
-                                   stroke="currentColor" class="size-6">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                      d="M3 3v1.5M3 21v-6m0 0 2.77-.693a9 9 0 0 1 6.208.682l.108.054a9 9 0 0 0 6.086.71l3.114-.732a48.524 48.524 0 0 1-.005-10.499l-3.11.732a9 9 0 0 1-6.085-.711l-.108-.054a9 9 0 0 0-6.208-.682L3 4.5M3 15V4.5"/>
-                              </svg>{{ $value }}</a>
+                              <x-heroicon-o-flag class="size-5"/> {{ $value }}</a>
                           @endif
                         @endforeach
                       </div>

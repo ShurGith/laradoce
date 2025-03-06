@@ -1,10 +1,20 @@
 @props([
     'enFavorites' => strpos(request()->cookie('cookie_favorites'), $product->id),
     'rand' => rand(3,5),
-    'css' => true,
+   // 'css' => true,
   ])
 <x-layouts.app :meta-title="$product->name" :header-text="$product->name">
-  <link rel="stylesheet" href="../css/show.css">
+  <style>
+      .especificaciones {
+          display: grid;
+          grid-template-rows: min-content 0fr;
+          transition: grid-template-rows 500ms;
+      }
+
+      .especificaciones.mostrado {
+          grid-template-rows: min-content 1fr;
+      }
+  </style>
   <section class="mx-auto max-w-2xl lg:max-w-none">
     <!-- Product -->
     <div class="lg:grid lg:grid-cols-2 lg:items-start lg:gap-x-8">
