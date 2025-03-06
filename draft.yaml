@@ -1,0 +1,67 @@
+models:
+  Product:
+    name: string
+    description: longtext nullable
+    features: longtext nullable
+    price: integer nullable
+    active: boolean default:1
+    oferta: boolean default:0
+    descuento: integer nullable
+    units: integer nullable
+    relationships:
+      hasMany: Imageproduct, Featuretitle
+      belongsToMany: Tag, Category
+      belongsTo: User
+
+  Imageproduct:
+    img_path: string
+    img_pos: integer
+    timestamps: false
+    relationships:
+      belongsTo: Product
+
+  Featuretitle:
+    title: string
+    text: longtext
+    timestamps: false
+    relationships:
+      belongsTo: Product
+      #hasMany: Featureproduct
+
+  Generaloptions:
+    name: string
+    active: string
+    timestamps: false
+
+  #  Featureproduct:
+  #    feature: longtext
+  #    timestamps: false
+  #    relationships:
+  #      belongsTo: Featuretitle
+
+  Category:
+    name: string
+    bgcolor: text nullable
+    color: string nullable
+    image: text nullable
+    icon: text nullable
+    icon_active: boolean default:0
+    timestamps: false
+    relationships:
+      hasMany: Tag
+
+  Tag:
+    name: string
+    bgcolor: text nullable
+    color: string nullable
+    image: text nullable
+    icon: text nullable
+    icon_active: boolean default:0
+    timestamps: false
+    relationships:
+      hasMany: Product
+      belongsTo: Category
+
+controllers:
+  Product:
+    resource

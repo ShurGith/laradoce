@@ -1,0 +1,38 @@
+created:
+    - app/Http/Controllers/ProductController.php
+    - database/factories/ProductFactory.php
+    - database/factories/ImageproductFactory.php
+    - database/factories/FeaturetitleFactory.php
+    - database/factories/GeneraloptionsFactory.php
+    - database/factories/CategoryFactory.php
+    - database/factories/TagFactory.php
+    - database/migrations/2025_03_06_011922_create_products_table.php
+    - database/migrations/2025_03_06_011923_create_imageproducts_table.php
+    - database/migrations/2025_03_06_011924_create_featuretitles_table.php
+    - database/migrations/2025_03_06_011925_create_generaloptions_table.php
+    - database/migrations/2025_03_06_011926_create_categories_table.php
+    - database/migrations/2025_03_06_011927_create_tags_table.php
+    - database/migrations/2025_03_06_011928_create_product_tag_table.php
+    - database/migrations/2025_03_06_011929_create_category_product_table.php
+    - app/Models/Product.php
+    - app/Models/Imageproduct.php
+    - app/Models/Featuretitle.php
+    - app/Models/Generaloptions.php
+    - app/Models/Category.php
+    - app/Models/Tag.php
+    - tests/Feature/Http/Controllers/ProductControllerTest.php
+    - resources/views/product/index.blade.php
+    - resources/views/product/create.blade.php
+    - resources/views/product/show.blade.php
+    - resources/views/product/edit.blade.php
+updated:
+    - routes/web.php
+models:
+    Blog: {  }
+    Category: { name: string, bgcolor: 'text nullable', color: 'string nullable', image: 'text nullable', icon: 'text nullable', icon_active: 'boolean default:0', timestamps: false, relationships: { hasMany: Tag } }
+    Featuretitle: { title: string, text: longtext, timestamps: false, relationships: { belongsTo: Product } }
+    Generaloptions: { name: string, active: string, timestamps: false }
+    Imageproduct: { img_path: string, img_pos: integer, timestamps: false, relationships: { belongsTo: Product } }
+    Product: { name: string, description: 'longtext nullable', features: 'longtext nullable', price: 'integer nullable', active: 'boolean default:1', oferta: 'boolean default:0', descuento: 'integer nullable', units: 'integer nullable', relationships: { hasMany: 'Imageproduct, Featuretitle', belongsToMany: 'Tag, Category', belongsTo: User } }
+    Tag: { name: string, bgcolor: 'text nullable', color: 'string nullable', image: 'text nullable', icon: 'text nullable', icon_active: 'boolean default:0', timestamps: false, relationships: { hasMany: Product, belongsTo: Category } }
+    User: { name: string, email: string, email_verified_at: 'datetime nullable', password: string, remember_token: 'string nullable', avatar: 'string nullable' }
