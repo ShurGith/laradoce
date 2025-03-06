@@ -19,7 +19,6 @@
          */
         public function run(): void
         {
-            User::factory(10)->create();
             
             User::factory()->create([
               'name' => 'Juan Jota',
@@ -27,7 +26,7 @@
               'password' => Hash::make('12345678')
             ]);
             
-            User::factory(9)->create();
+            User::factory(30)->create();
             
             Generaloptions::factory()->create([
               'name' => 'hide_no_actives',

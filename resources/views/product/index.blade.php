@@ -1,7 +1,6 @@
-{{--
-    @extends('layouts.app')
+<x-layouts.app :meta-title="isset($title )? $title . ' - ' .config('app.name') : config('app.name')"
+               :header-text="isset($title) ? $title . ' - ' .config('app.name') : config('app.name')">
 
-    @section('content')
-        product.index template
-    @endsection
---}}
+    <x-products-list :products="$products"/>
+
+</x-layouts.app>

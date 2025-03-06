@@ -10,17 +10,19 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "awcodes/filament-tiptap-editor": "^3.0",
         "filament/filament": "^3.2",
         "laravel/framework": "^12.0",
         "laravel/tinker": "^2.10.1",
         "livewire/flux": "^2.0",
         "livewire/volt": "^1.6.7",
-        "rickdbcn/filament-email": "^1.8"
+        "rickdbcn/filament-email": "^1.8",
+        "laravolt/avatar": "^6.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.14",
         "fakerphp/faker": "^1.23",
-        "laravel-lang/common": "^6.5",
+        "laravel-lang/common": "^6.7",
         "laravel-shift/blueprint": "^2.11",
         "laravel/pail": "^1.2.2",
         "laravel/pint": "^1.18",
