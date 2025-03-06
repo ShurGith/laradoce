@@ -79,7 +79,7 @@
                   </button>
                   @endauth
                   @guest
-                    <a href="{{  url( '/user/login') }}"
+                    <a href="{{  url( '/login') }}"
                        class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Login</a>
                   @endguest
                   <!--
@@ -99,7 +99,7 @@
                          tabindex="-1">
                       <!-- Active: "bg-gray-100 outline-none", Not Active: "" -->
                       <div>
-                        <a href="#" class="block px-4 py-2 text-sm text-gray-700"
+                        <a href="{{ route('settings.profile') }}" class="block px-4 py-2 text-sm text-gray-700"
                            role="menuitem" tabindex="-1"
                            id="user-menu-item-0">Your Profile</a>
                         <a href="#" class="block px-4 py-2 text-sm text-gray-700"

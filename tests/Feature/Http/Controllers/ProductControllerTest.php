@@ -2,6 +2,9 @@
 
 namespace Tests\Feature\Http\Controllers;
 
+use App\Http\Controllers\ProductController;
+use App\Http\Requests\ProductStoreRequest;
+use App\Http\Requests\ProductUpdateRequest;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -15,7 +18,9 @@ use Tests\TestCase;
  */
 final class ProductControllerTest extends TestCase
 {
-    use AdditionalAssertions, RefreshDatabase, WithFaker;
+    use AdditionalAssertions;
+    use RefreshDatabase;
+    use WithFaker;
 
     #[Test]
     public function index_displays_view(): void
@@ -44,9 +49,9 @@ final class ProductControllerTest extends TestCase
     public function store_uses_form_request_validation(): void
     {
         $this->assertActionUsesFormRequest(
-            \App\Http\Controllers\ProductController::class,
+            ProductController::class,
             'store',
-            \App\Http\Requests\ProductStoreRequest::class
+            ProductStoreRequest::class
         );
     }
 
@@ -109,9 +114,9 @@ final class ProductControllerTest extends TestCase
     public function update_uses_form_request_validation(): void
     {
         $this->assertActionUsesFormRequest(
-            \App\Http\Controllers\ProductController::class,
+            ProductController::class,
             'update',
-            \App\Http\Requests\ProductUpdateRequest::class
+            ProductUpdateRequest::class
         );
     }
 

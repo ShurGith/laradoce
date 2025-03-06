@@ -3,6 +3,8 @@
 namespace App\Livewire\Auth;
 
 use App\Models\User;
+use App\Notifications\NewUserRegistered;
+use App\Notifications\WellcomeNewUser;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -37,6 +39,13 @@ class Register extends Component
         event(new Registered(($user = User::create($validated))));
 
         Auth::login($user);
+        // Enviar email al usuario registrado
+        $user->notify(new WellcomeNewUser($user));
+        // Enviar email al administrador
+        $admin = User::where('id', 1)->first(); // Asegúrate de que tienes un campo is_admin en la tabla users
+        if ($admin) {
+            $admin->notify(new NewUserRegistered($user));
+        }
 
         $this->redirect(route('dashboard', absolute: false), navigate: true);
     }

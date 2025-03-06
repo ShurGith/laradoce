@@ -16,7 +16,7 @@
                     $enFavorites= strpos(request()->cookie('cookie_favorites'), $product->id);
                 @endphp
                 <button type="button" data-id="{{ $product->id }}"
-                        class="favorite-btn ml-4 flex items-center justify-center rounded-md px-3 py-3 text-gray-400 hover:bg-gray-100 hover:text-green-500">
+                        class="favorite-btn cursor-pointer ml-4 flex items-center justify-center rounded-md px-3 py-3 text-gray-400 hover:bg-gray-100 hover:text-green-500">
                     <x-heroicon-m-heart class="h-6 w-6 {{ $enFavorites ? 'text-green-500':'' }}"></x-heroicon-m-heart>
                     <span class="sr-only">Add to favorites</span>
                 </button>
