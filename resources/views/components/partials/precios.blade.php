@@ -1,10 +1,13 @@
-@php
-  function enteros($valor) {
-    $formatPrecio = number_format($valor / 100, 2, "'", ".");
-    return substr($formatPrecio,0, strpos($formatPrecio,"'" )+1);
-  }
-    function decimales($valor) {
-    $formatPrecio = number_format($valor / 100, 2, "'", ".");
-    return substr($formatPrecio, -2);
-  }
-@endphp
+@props(["textOriginal"=>"text-sm", "textFinal" => "text-base"])
+
+<div class="flex justify-center items-center gap-x-8">
+    @if($product->oferta)
+        <h4 class="line-through {{$textOriginal}} font-medium text-gray-900">{{ $product->precios( false ) }}
+            <span
+                class="text-xs pl-1 align-super  ">{{ $product->precios( false, true ) }}</span> €
+        </h4>
+    @endif
+    <h4 class="{{$textFinal}} font-medium text-gray-900">{{ $product->precios(true) }}<span
+            class="text-xs pl-1 align-super  ">{{ $product->precios(true,true) }}</span>
+        €</h4>
+</div>
