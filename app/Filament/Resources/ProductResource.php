@@ -66,13 +66,13 @@
                 Repeater::make('images')
                   ->translateLabel()
                   ->relationship('imageproducts')
+                  ->label('Imágenes')
                   ->schema([
                     Forms\Components\FileUpload::make('img_path')
                       ->directory('images/products')
                       ->image()
+                      ->label('Añadir Imagen')
                       ->imageEditor(),
-                    Forms\Components\TextInput::make('img_pos')
-                      ->numeric()->required(),
                   ])
                   ->grid(2)
                   ->columnSpanFull(),

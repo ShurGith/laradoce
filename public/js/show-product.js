@@ -2,7 +2,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const botones = document.querySelectorAll('[aria-controls = disclosure-1]'),
         divs = document.querySelectorAll('.especificaciones'),
         imagPal = document.querySelector('#img-ppal'),
-        imagenes = document.querySelectorAll('[img-role = img-slider]')
+        imagenes = document.querySelectorAll('[img-role = img-slider]'),
+        modal = document.querySelector('[aria-label="modal-image"]'),
+        closeModal = modal.querySelector('#closeModal'),
+        imgModal = modal.querySelector('img')
+
+
+ modalAction = ()=>{
+    modal.classList.toggle('-z-10')
+     modal.classList.toggle('opacity-0')
+     modal.classList.toggle('z-10')
+     modal.classList.toggle('opacity-100')
+     imgModal.src=imagPal.src
+}
+
+  imagPal.addEventListener('click',()=>{modalAction()})
+  closeModal.addEventListener('click',()=>{modalAction()})
 
  actionText = ()=>{
       for(div of divs)
@@ -25,17 +40,17 @@ document.addEventListener('DOMContentLoaded', () => {
             elem = imag.parentElement.previousElementSibling
             if (elem)
                 elem.classList.add('ring-transparent')
+        })
             img.parentElement.previousElementSibling.classList.remove('ring-transparent')
             const srcTumb = img.src
             const srcPal = imagPal.src
             imagPal.src = srcTumb
-            img.src = srcPal
-        })
+            img.src=srcPal
     }
 
     imagenes.forEach(img => {
         img.addEventListener('click', function () {
-            clickClassImg(this)
+            clickClassImg(img)
         })
     })
 })
