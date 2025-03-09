@@ -18,7 +18,7 @@
             if ($request->category) {
                 $titulo = " Productos de la categoría \"$request->categ_name\"";
                 $laid = $request->category;
-                $products = Product::with(['imageproducts'])
+                $products = Product::with(['tags', 'categories'])
                   ->whereHas('categories',
                     function ($query) use ($hideNoStock, $hideNoActives, $laid) {
                         $query->where('category_id', $laid)
@@ -29,7 +29,7 @@
             } elseif ($request->tag) {
                 $titulo = "Productos de la etiqueta \"$request->tag_name \"";
                 $laid = $request->tag;
-                $products = Product::with(['imageproducts'])
+                $products = Product::with(['tags', 'categories'])
                   ->whereHas('tags', function ($query) use ($hideNoStock, $hideNoActives, $laid) {
                       $query->where('tag_id', $laid)
                         ->when($hideNoActives == 1, fn($query) => $query->where('active', true))
@@ -38,7 +38,7 @@
                 
             } else {
                 $titulo = "Listado de productos";
-                $products = Product::with(['imageproducts'])
+                $products = Product::with(['tags', 'categories'])
                   ->when($hideNoActives == 1, fn($query) => $query->where('active', true))
                   ->when($hideNoStock == 1, fn($query) => $query->where('units', '>', 0))
                   ->paginate(100);

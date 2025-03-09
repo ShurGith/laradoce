@@ -23,6 +23,7 @@
           'descuento',
           'units',
           'user_id',
+          'images'
         ];
         
         protected $casts = [
@@ -30,33 +31,48 @@
           'active' => 'boolean',
           'oferta' => 'boolean',
           'user_id' => 'integer',
+          'images' => 'array',
         ];
         
         public function getImgPal()
         {
-            if ($this->imageproducts->count() === 0) {
-                return Avatar::create($this->name)->toBase64();
+            if (isset($this->images)) {
+                return asset($this->images[0]);
             }
-            return asset($this->imageproducts[0]->img_path);
+            return Avatar::create($this->name)->toBase64();
+        }
+        
+        public function countImg()
+        {
+            $count = 0;
+            if (isset($this->images)) {
+                foreach ($this->images as $img) {
+                    $count++;
+                }
+                return $count - 1;
+            }
+            return false;
         }
         
         public function getThumbs()
         {
             $thumbs = [];
-            foreach ($this->imageproducts as $thumb) {
-                if ($thumb !== $this->imageproducts[0]) {
-                    $thumbs[] = $thumb->img_path;
+            if (isset($this->images)) {
+                foreach ($this->images as $thumb) {
+                    if ($thumb !== $this->images[0]) {
+                        $thumbs[] = $thumb;
+                    }
                 }
             }
             return $thumbs;
             
         }
         
-        public function imageproducts(): HasMany
-        {
-            return $this->hasMany(Imageproduct::class);
-        }
-        
+        /*  public function imageproducts(): HasMany
+          {
+              return $this->hasMany(Imageproduct::class);
+          }
+          */
         public function featuretitles(): HasMany
         {
             return $this->hasMany(Featuretitle::class);

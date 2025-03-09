@@ -67,19 +67,17 @@
                   ->profile('default')
                   ->output(TiptapOutput::Html)
                   ->columnSpanFull(),
-                Repeater::make('images')
-                  ->translateLabel()
-                  ->relationship('imageproducts')
-                  ->label('Imágenes')
-                  ->schema([
-                    Forms\Components\FileUpload::make('img_path')
-                      ->directory('images/products')
-                      ->image()
-                      ->label('Añadir Imagen')
-                      ->imageEditor(),
-                  ])
-                  ->grid(2)
-                  ->columnSpanFull(),
+                Forms\Components\FileUpload::make('images')
+                  ->directory('images/products')
+                  ->image()
+                  ->reorderable()
+                  ->openable()
+                  ->label('Añadir Imagen')
+                  ->imageEditor()
+                  ->appendFiles()
+                  ->columnSpanFull()
+                  ->panelLayout('grid')
+                  ->multiple(),
                 Repeater::make('features')
                   ->translateLabel()
                   ->relationship('featuretitles')
@@ -94,7 +92,6 @@
                   ->translateLabel()
                   ->relationship('categories', 'name')
                   ->reactive(), // Esto hace que al cambiar la categoría, se actualicen otros campos dinámicamente
-                  //   ->afterStateUpdated(fn(callable $set) => $set('tag_id', null)),
                 Forms\Components\CheckboxList::make('tag_id')
                   ->translateLabel()
                   ->relationship('tags')
@@ -153,7 +150,7 @@
               ])
               ->actions([
                 Tables\Actions\EditAction::make()
-                  ->slideOver(),
+                  // ->slideOver(),
               ])
               ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -174,7 +171,7 @@
             return [
               'index' => Pages\ListProducts::route('/'),
                 //'create' => Pages\CreateProduct::route('/create'),
-                //'edit' => Pages\EditProduct::route('/{record}/edit'),
+              'edit' => Pages\EditProduct::route('/{record}/edit'),
             ];
         }
         

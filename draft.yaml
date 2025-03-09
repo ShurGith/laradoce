@@ -8,17 +8,18 @@ models:
     oferta: boolean default:0
     descuento: integer nullable
     units: integer nullable
+    images: json nullable
     relationships:
-      hasMany: Imageproduct, Featuretitle
+      hasMany: Featuretitle
       belongsToMany: Tag, Category
       belongsTo: User
 
-  Imageproduct:
-    img_path: string
-    img_pos: integer
-    timestamps: false
-    relationships:
-      belongsTo: Product
+  # Imageproduct:
+  #   img_path: string
+  #   img_pos: integer
+  #   timestamps: false
+  #   relationships:
+  #     belongsTo: Product
 
   Featuretitle:
     title: string

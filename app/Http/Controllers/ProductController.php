@@ -17,7 +17,8 @@
             $hideNoActives = Generaloptions::get('hide_no_actives', '0');
             $hideNoStock = Generaloptions::get('hide_no_existences', '0');
             
-            $products = Product::when($hideNoActives == 1, fn($query) => $query->where('active', true))
+            $products = Product::with(['tags', 'categories'])
+              ->when($hideNoActives == 1, fn($query) => $query->where('active', true))
               ->when($hideNoStock == 1, fn($query) => $query->where('units', '>', 0))
               ->paginate(12);
             
@@ -47,9 +48,9 @@
             for ($i = 0; $i < 4; $i++) {
                 $randoms[] = Product::find(rand($i, Product::count()));
             }
-            
             return view('product.show', [
               'product' => $product,
+                //   'imagenes' => $imagenes,
               'randoms' => $randoms,
               'esSingleProduct' => true,
             ]);

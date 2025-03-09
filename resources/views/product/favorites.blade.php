@@ -8,7 +8,7 @@
         <form method="post" action="{{route('favorites.eliminar')}}">
           @csrf
           <button type="submit"
-                  class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                  class="cursor-pointer block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
             {{ __('Delete All') }}
           </button>
         </form>
@@ -35,15 +35,9 @@
         </thead>
         <tbody>
         @foreach($products as $product)
-          @php
-            if($product->imageproducts->count() === 0 )
-            $img =  Avatar::create($product->name)->toBase64();
-              else
-          $img = asset($product->getImgPal());
-          @endphp
           <tr class="border-b">
             <td class="relative py-4 pl-4 pr-3 text-sm sm:pl-6">
-              <div class="font-medium text-gray-900"><img class="max-w-14" src="{{ $img }}"></div>
+              <div class="font-medium text-gray-900"><img class="max-w-14" src="{{ $product->getImgPal() }}"></div>
             </td>
             <td class=" relative py-4 pl-4 pr-3 text-sm sm:pl-6">
               <div class="font-medium text-gray-900">{{ $product->name }}</div>

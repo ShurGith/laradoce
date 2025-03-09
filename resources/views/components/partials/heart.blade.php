@@ -1,10 +1,26 @@
-<div type="button" data-id="{{ $product->id }}" data-tipo="heart-button"
-     class="cursor-pointer border text-xs flex items-center bg-gray-50 pr-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500">
-    <button>
-        <x-heroicon-m-heart
-            class="{{request()->routeIs('products.show')?'h-10 w-10': 'h-6 w-6' }} {{ $enFavorites ? 'text-green-500':'' }}"></x-heroicon-m-heart>
-        <span class="sr-only">{{__('Add to favorites')}}</span>
-    </button>
-    <p class="{{$enFavorites ? 'text-green-600 ': 'hidden'}}">{{__('In favorites')}}</p>
-    <p class="{{!$enFavorites ? 'visible': 'hidden'}}">{{__('Add to favorites') }}</p>
+@props([
+    'enFavorites' => strpos(request()->cookie('cookie_favorites'), $product->id),
+  ])
+<style>
+    [data-tipo="heart-button"]:hover [data-role='tooltip'] {
+        opacity: 1;
+        transform: translate(25%, -120%);
+        z-index: 100;
+    }
+</style>
+<div data-id="{{ $product->id }}" data-tipo="heart-button"
+     class="{{$enFavorites ? 'text-green-500': ''}} relative cursor-pointer border text-xs flex items-center bg-gray-50 pr-2 text-gray-400 hover:bg-gray-300">
+  <button>
+    <x-heroicon-m-heart
+      class="{{request()->routeIs('products.show')?'h-10 w-10': 'h-6 w-6' }} "></x-heroicon-m-heart>
+    <span class="sr-only">{{ $enFavorites ? __('Add to favorites') :  __('In favorites') }}</span>
+  </button>
+  <p id="in-favorites" class="{{$enFavorites ? '': 'hidden'}} font-semibold">{{ __('In favorites') }}</p>
+  <p id="add-favorite" class="{{$enFavorites ? 'hidden': ''}} font-semibold">{{ __('Add to favorites') }}</p>
+  <div class="min-w-max max-h-8 transition duration-200 absolute bg-black opacity-0 px-2 py-1 rounded"
+       data-role="tooltip">
+    <span
+      class="relative z-1 text-white font-bold text-xs">{{ $enFavorites ?  __('Click remove favorites') :  __('Click add to favorites') }}</span>
+    <div class="w-4 h-10 bg-black rotate-70 -translate-y-3.5 translate-x-8"></div>
+  </div>
 </div>

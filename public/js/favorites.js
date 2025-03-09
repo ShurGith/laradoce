@@ -1,10 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const btnsFav = document.querySelectorAll('[data-tipo = heart-button]');
-    const flashMenssage = document.getElementById('flashMessage');
-    const btnFlash = flashMenssage.querySelector('button');
-    const flashUnic = document.getElementById('favorite-unic');
-    //const btnFav = document.getElementById('btnFav');
-    const url = window.location.href.includes('/products/')
+    const btnsFav = document.querySelectorAll('[data-tipo = heart-button]'),
+       divFavorites = document.getElementById("div-favorites"),
+       flashMenssage = document.getElementById('flashMessage'),
+       btnFlash = flashMenssage.querySelector('button'),
+       flashUnic = document.getElementById('favorite-unic'),
+       contador = document.querySelector(".contador"),
+    //const btnFav = document.getElementById('btnFav'),
+       url = window.location.href.includes('/products/')
 
     const containsString = (obj, str) => {
         return Object.values(obj).some(value => typeof value === 'string' && value.includes(str));
@@ -30,8 +32,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     btnsFav.forEach((btnFav) => {
         btnFav.addEventListener("click", function () {
-            const productId = this.getAttribute("data-id"), contador = document.querySelector(".contador"),
-                divFavorites = document.getElementById("div-favorites");
+            productId = this.getAttribute("data-id"),
+            this.classList.toggle('text-green-500')
+            for(p of this.querySelectorAll('p'))
+               p.classList.toggle('hidden')
 
             fetch(`/favorites/toggle/${productId}`, {
                 method: "POST", headers: {
@@ -42,8 +46,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 .then(response => response.json())
                 .then(data => {
                     if (containsString(data.favorites, productId)) {
-                        this.classList.add('text-green-500');
-                        this.lastElementChild.toggle('hidden');
                         contador.innerText = (+contador.innerText) + 1
                         if (url) {
                             document.querySelector('.fav-show-add').classList.remove('hidden')
@@ -52,7 +54,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
 
                     } else {
-                        this.classList.remove('text-green-500');
                         contador.innerText = (+contador.innerText) - 1
                         if (url) {
                             document.querySelector('.fav-show-remove').classList.remove('hidden')
