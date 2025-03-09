@@ -55,7 +55,6 @@
         
         public function getCountProducts(): int
         {
-            //return Product::where('user_id', $this->id)->count();
             return $this->products()->count();
         }
         
@@ -63,6 +62,7 @@
         {
             return $this->hasMany(Product::class);
         }
+        
         
         protected function casts(): array
         {

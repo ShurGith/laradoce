@@ -21,6 +21,21 @@
         conic-gradient(#000 0 0) content-box;
     }
 </style>
+<!-- Modal Imagen -->
+<div class="relative -z-10 transition-all ease-out duration-300 opacity-0" aria-label="modal-image" role="dialog"
+     aria-modal="true">
+  <div class="fixed inset-0 bg-gray-500/95 transition-opacity" aria-hidden="true"></div>
+  <div class="fixed w-full inset-0 z-10 w-screen">
+    <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0" role="fondo">
+      <div
+        class="relative w-full min-w-1/2 overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl sm:my-8 sm:w-full sm:max-w-lg sm:p-6"
+        role="no-cerrar">
+        <x-heroicon-c-x-mark class="h-10 w-10 cursor-pointer" id="closeModal"/>
+        <img class="size-full object-contain" src="" role="no-cerrar">
+      </div>
+    </div>
+  </div>
+</div>
 <x-layouts.app :meta-title="$product->name" :header-text="$product->name">
   <!-- ## Sección Principal ## -->
   <section class="mx-auto max-w-2xl lg:max-w-none">
@@ -178,7 +193,7 @@
     <!-- Categorías y Etiquetas -->
     <div>
       <h2 id="details-heading" class="">{{ __('Categories') }}</h2>
-      <div class="max-w-96 ml-10 mt-4">
+      <div class="max-w-1/3 ml-10 mt-4">
         @include('components.partials.categorias-tags')
       </div>
     </div>
@@ -222,20 +237,7 @@
   </section>
   <!-- Fin Repeater con Adicionales -->
 </x-layouts.app>
-<!-- Modal Imagen -->
-<div class="relative -z-10 transition-all ease-out duration-300 opacity-0" aria-label="modal-image" role="dialog"
-     aria-modal="true">
-  <div class="fixed inset-0 bg-gray-500/75 transition-opacity" aria-hidden="true"></div>
-  <div class="fixed w-full inset-0 z-10 w-screen overflow-y-auto">
-    <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-      <div
-        class="relative w-full min-w-1/2 overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
-        <x-heroicon-c-x-mark class="h-10 w-10 cursor-pointer" id="closeModal"/>
-        <img class="size-full object-contain" src="">
-      </div>
-    </div>
-  </div>
-</div>
+
 <!-- JavaScript -->
 <script src="{{asset('js/favorites.js')}}"></script>
 <script src="{{asset('js/show-product.js')}}"></script>

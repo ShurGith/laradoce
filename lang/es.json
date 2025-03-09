@@ -300,5 +300,12 @@
   "Enter your email and password below to log in": "Indica tu email y contraseña para conectarte",
   "Enter your details below to create your account": "Completa los campos para poder crear una cuenta.",
   "Your Profile": "Perfil",
-  "Sign out": "Desconectarse"
+  "Sign out": "Desconectarse",
+  "Hide no actives": "Ocultar no activos",
+  "Hide no existences": "Ocultar si existencias",
+  "General Options": "Opciones Generales",
+  "product": "producto",
+  "Product": "Producto",
+  "Article": "Artículo",
+  "Seller": "Vendedor"
 }

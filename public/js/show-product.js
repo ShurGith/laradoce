@@ -3,21 +3,28 @@ document.addEventListener('DOMContentLoaded', () => {
         divs = document.querySelectorAll('.especificaciones'),
         imagPal = document.querySelector('#img-ppal'),
         imagenes = document.querySelectorAll('[img-role = img-slider]'),
+        fondo = document.querySelector('[role = fondo]'),
         modal = document.querySelector('[aria-label="modal-image"]'),
         closeModal = modal.querySelector('#closeModal'),
         imgModal = modal.querySelector('img')
 
 
  modalAction = ()=>{
-    modal.classList.toggle('-z-10')
+     modal.classList.toggle('-z-10')
      modal.classList.toggle('opacity-0')
-     modal.classList.toggle('z-10')
+     modal.classList.toggle('z-11')
      modal.classList.toggle('opacity-100')
      imgModal.src=imagPal.src
 }
 
   imagPal.addEventListener('click',()=>{modalAction()})
-  closeModal.addEventListener('click',()=>{modalAction()})
+
+  fondo.addEventListener('click',(event)=>{
+           if(event.target.role === 'fondo')
+            modalAction()
+  })
+
+ closeModal.addEventListener('click',()=>{modalAction()})
 
  actionText = ()=>{
       for(div of divs)

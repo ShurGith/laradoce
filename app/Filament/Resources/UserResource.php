@@ -11,9 +11,8 @@
     use Filament\Resources\Pages\Page;
     use Filament\Resources\Resource;
     use Filament\Tables;
-    use Filament\Tables\Filters\Filter;
+    use Filament\Tables\Columns\TextColumn;
     use Filament\Tables\Table;
-    use Illuminate\Database\Eloquent\Builder;
     use Illuminate\Support\Facades\Hash;
     use Log;
     use STS\FilamentImpersonate\Tables\Actions\Impersonate;
@@ -22,9 +21,9 @@
     {
         protected static ?string $model = User::class;
         
-        protected static ?string $navigationGroup = 'Admin';
         protected static ?string $navigationIcon = 'heroicon-o-user-group';
         protected static ?int $navigationSort = 1;
+        protected static ?string $navigationGroup = 'Admin';
         
         public static function form(Form $form): Form
         {
@@ -57,8 +56,14 @@
         
         public static function table(Table $table): Table
         {
+            function verificado($record)
+            {
+                return $record->hasVerifiedEmail();
+            }
+            
             return $table
               ->columns([
+                TextColumn::make('Nº')->rowIndex(),
                 Tables\Columns\ImageColumn::make('avatar')
                   ->circular()
                   ->defaultImageUrl(function ($record) {
@@ -67,14 +72,14 @@
                 Tables\Columns\TextColumn::make('name')
                   ->searchable(),
                 Tables\Columns\TextColumn::make('email_verified_at')
-                  ->label('Verificado')
                   ->badge()
-                  ->color('success')
-                  ->icon('heroicon-o-check-circle')
-                  ->formatStateUsing(fn($state) => filled($state) ? 'Verificado' : 'Pendiente'),
+                  ->label('Activado')
+                  ->icon(fn($record) => verificado($record) ? 'heroicon-m-check-badge'
+                    : 'heroicon-o-shield-exclamation')
+                  ->color(fn($record) => verificado($record) ? "success" : "naranja")
+                  ->default('No description.')
+                  ->formatStateUsing(fn($record) => verificado($record) ? "Verificado" : "Pendiente"),
                 Tables\Columns\TextColumn::make('email')
-                  ->searchable(),
-                Tables\Columns\ImageColumn::make('avatar')
                   ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                   ->dateTime()
@@ -86,12 +91,6 @@
                   ->toggleable(isToggledHiddenByDefault: true),
               ])
               ->filters([
-                Filter::make('verified')
-                  ->label('Email Verified')
-                  ->query(fn(Builder $query) => $query->whereNotNull('email_verified_at')),
-                Filter::make('unverified')
-                  ->label('Email Not Verified')
-                  ->query(fn(Builder $query) => $query->whereNull('email_verified_at')),
               ])
               ->actions([
                 Impersonate::make(),
