@@ -1,10 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const btnsFav = document.querySelectorAll(".favorite-btn");
+    const btnsFav = document.querySelectorAll('[data-tipo = heart-button]');
     const flashMenssage = document.getElementById('flashMessage');
     const btnFlash = flashMenssage.querySelector('button');
     const flashUnic = document.getElementById('favorite-unic');
-    const btnFav = document.getElementById('btnFav');
-    const url= window.location.href.includes('/products/')
+    //const btnFav = document.getElementById('btnFav');
+    const url = window.location.href.includes('/products/')
 
     const containsString = (obj, str) => {
         return Object.values(obj).some(value => typeof value === 'string' && value.includes(str));
@@ -20,13 +20,13 @@ document.addEventListener('DOMContentLoaded', () => {
         flashMenssage.firstElementChild.classList.add('-translate-y-full');
     };
 
-    muestraFlash = ()=>{
-           flashMenssage.firstElementChild.classList.remove('-translate-y-full')
-           setTimeout(quitaFlash, 3000)
-   }
+    muestraFlash = () => {
+        flashMenssage.firstElementChild.classList.remove('-translate-y-full')
+        setTimeout(quitaFlash, 3000)
+    }
 
-if(!url)
-    setTimeout(muestraFlash, 300);
+    if (!url)
+        setTimeout(muestraFlash, 300);
 
     btnsFav.forEach((btnFav) => {
         btnFav.addEventListener("click", function () {
@@ -42,21 +42,22 @@ if(!url)
                 .then(response => response.json())
                 .then(data => {
                     if (containsString(data.favorites, productId)) {
-                        this.querySelector('svg').classList.add('text-green-500');
+                        this.classList.add('text-green-500');
+                        this.lastElementChild.toggle('hidden');
                         contador.innerText = (+contador.innerText) + 1
-                        if(url){
-                          document.querySelector('.fav-show-add').classList.remove('hidden')
-                          document.querySelector('.fav-show-remove').classList.add('hidden')
-                          muestraFlash()
+                        if (url) {
+                            document.querySelector('.fav-show-add').classList.remove('hidden')
+                            document.querySelector('.fav-show-remove').classList.add('hidden')
+                            muestraFlash()
                         }
 
                     } else {
-                        this.querySelector('svg').classList.remove('text-green-500');
+                        this.classList.remove('text-green-500');
                         contador.innerText = (+contador.innerText) - 1
-                        if(url){
-                          document.querySelector('.fav-show-remove').classList.remove('hidden')
-                          document.querySelector('.fav-show-add').classList.add('hidden')
-                          muestraFlash()
+                        if (url) {
+                            document.querySelector('.fav-show-remove').classList.remove('hidden')
+                            document.querySelector('.fav-show-add').classList.add('hidden')
+                            muestraFlash()
                         }
                     }
                     if (contador.innerText === "0") {
