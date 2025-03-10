@@ -32,6 +32,8 @@
           'active' => 'boolean',
           'oferta' => 'boolean',
           'user_id' => 'integer',
+          'descuento' => 'integer',
+          'units' => 'integer',
           'images' => 'array',
           'stars' => 'integer'
         ];

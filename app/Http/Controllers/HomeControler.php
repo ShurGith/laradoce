@@ -2,8 +2,10 @@
     
     namespace App\Http\Controllers;
     
+    use App\Models\Category;
     use App\Models\Generaloptions;
     use App\Models\Product;
+    use App\Models\Tag;
     use Illuminate\Http\Request;
     use Illuminate\View\View;
     
@@ -16,8 +18,10 @@
             $onlyRegisterCanView = Generaloptions::get('only_register_can_view', '0');
             
             if ($request->category) {
-                $titulo = " Productos de la categoría \"$request->categ_name\"";
                 $laid = $request->category;
+                $elNombre = Category::where('id', $laid)->pluck('name')[0];
+                //dd($elNombre);
+                $titulo = " Productos de la categoría \"$elNombre\"";
                 $products = Product::with(['tags', 'categories'])
                   ->whereHas('categories',
                     function ($query) use ($hideNoStock, $hideNoActives, $laid) {
@@ -27,8 +31,9 @@
                     })->paginate(12);
                 
             } elseif ($request->tag) {
-                $titulo = "Productos de la etiqueta \"$request->tag_name \"";
                 $laid = $request->tag;
+                $elNombre = Tag::where('id', $laid)->pluck('name')[0];
+                $titulo = "Productos de la etiqueta \"$elNombre \"";
                 $products = Product::with(['tags', 'categories'])
                   ->whereHas('tags', function ($query) use ($hideNoStock, $hideNoActives, $laid) {
                       $query->where('tag_id', $laid)

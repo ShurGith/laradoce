@@ -149,7 +149,7 @@
                     </span>
           </button>
           <div class="overflow-hidden" id="disclosure">
-            {!! $feature->text !!}
+            {!! tiptap_converter()->asHTML($feature->text) !!}
           </div>
         </div>
       @endforeach

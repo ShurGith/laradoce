@@ -1,4 +1,4 @@
-<a href="{{url('/?tag='.$tag->id.'&tag_name='.$tag->name)}}">
+<a href="{{url('/?tag='.$tag->id)}}">
   <div class="flex items-center justify-start gap-1 py-1 px-2 ml-4 mt-0.5 rounded"
        style="background:{{ $tag->bgcolor }}">
     @if($tag->icon_active)

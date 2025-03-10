@@ -12,9 +12,10 @@
     use Filament\Forms\Form;
     use Filament\Forms\Get;
     use Filament\Resources\Resource;
+    use Filament\Support\Enums\FontFamily;
+    use Filament\Support\Enums\FontWeight;
     use Filament\Tables;
     use Filament\Tables\Columns\TextColumn;
-    use Filament\Tables\Columns\TextInputColumn;
     use Filament\Tables\Columns\ToggleColumn;
     use Filament\Tables\Table;
     use FilamentTiptapEditor\Enums\TiptapOutput;
@@ -63,7 +64,6 @@
                     ->numeric()
                     ->columnSpan(1)
                     ->translateLabel(),
-                  
                   Forms\Components\Toggle::make('oferta')
                     ->translateLabel()
                     ->inline(false)
@@ -83,9 +83,11 @@
                   ->relationship('featuretitles')
                   ->schema([
                     TextInput::make('title')->required()->label('nombre'),
-                    Forms\Components\RichEditor::make('text')->required()->label('Texto'),
+                    TiptapEditor::make('text')
+                      ->required()
+                      ->label('Texto'),
                   ])
-                  ->label('Detalles')
+                  ->label('Especificaciones')
                   ->grid(2)
                   ->columnSpanFull(),
                 Split::make([
@@ -119,31 +121,58 @@
         {
             return $table
               ->columns([
+                TextColumn::make('N')
+                  ->rowIndex(),
                 TextColumn::make('name')
                   ->label('Product')
+                  ->color('primary')
+                  ->tooltip('Click para ver')
                   ->searchable()
+                  ->weight(FontWeight::Bold)
+                  ->fontFamily(FontFamily::Sans)
+                  ->url(fn(Product $record): string => route('products.show', ['product' => $record]))
+                  ->openUrlInNewTab()
                   ->translateLabel(),
                 TextColumn::make('price')
+                  ->size(TextColumn\TextColumnSize::ExtraSmall)
+                  ->alignCenter()
                   ->translateLabel()
                   ->money('EUR', divideBy: 100, locale: 'es'),
                 ToggleColumn::make('active')
-                  ->label('En Venta'),
-                ToggleColumn::make('oferta'),
-                TextInputColumn::make('descuento')
-                  ->label('Descuento'),
-                TextInputColumn::make('units')
-                  ->label('Unidades'),
-                TextColumn::make('user.name')
+                  ->alignCenter()
+                  ->label('On Sale')
+                  ->translateLabel(),
+                ToggleColumn::make('oferta')
+                  ->alignCenter()
+                  ->label('Offer')
+                  ->translateLabel(),
+                TextColumn::make('descuento')
+                  ->size(TextColumn\TextColumnSize::ExtraSmall)
                   ->numeric()
-                  ->sortable(),
+                  ->alignCenter()
+                  ->label('Descuento'),
+                TextColumn::make('units')
+                  ->size(TextColumn\TextColumnSize::ExtraSmall)
+                  ->alignCenter()
+                  ->label('Stock')
+                  ->translateLabel(),
                 TextColumn::make('categories.name')
+                  ->size(TextColumn\TextColumnSize::ExtraSmall)
+                  ->alignCenter()
                   ->label('Categorias')
+                  ->url(fn($record) => route('home',
+                    ['category' => $record->categories->first()?->id]))
+                  ->openUrlInNewTab()
                   ->badge()
                   ->color('success'),
                 TextColumn::make('tags.name')
+                  ->openUrlInNewTab()
+                  ->size(TextColumn\TextColumnSize::ExtraSmall)
+                  ->alignCenter()
                   ->label('Etiquetas')
                   ->badge(),
                 TextColumn::make('user.name')
+                  ->size(TextColumn\TextColumnSize::ExtraSmall)
                   ->label('Seller')
                   ->translateLabel()
                   ->icon('heroicon-m-user')

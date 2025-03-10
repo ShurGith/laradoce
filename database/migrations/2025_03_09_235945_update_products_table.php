@@ -11,7 +11,7 @@
         public function up(): void
         {
             Schema::table('products', function (Blueprint $table) {
-                $table->string('images')->after('description')->nullable();
+                //$table->string('images')->after('description')->nullable();
             });
         }
         

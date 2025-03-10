@@ -1,4 +1,4 @@
-<a href="{{url('/?category='.$category->id).'&categ_name='.$category->name}}">
+<a href="{{url('/?category='.$category->id)}}">
   <div class="flex w-full max-w-20xl min-h-8 items-center gap-1 py-1 px-2 rounded text-base"
        style="background:{{ $category->bgcolor }}; color:{{$category->color}}">
     @if($category->icon_active)
