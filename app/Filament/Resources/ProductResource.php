@@ -34,50 +34,50 @@
         {
             return $form
               ->schema([
-                Forms\Components\TextInput::make('name')
-                  ->label('Producto')
-                  ->required()
-                  ->maxLength(255),
                 Split::make([
-                  Forms\Components\Toggle::make('oferta')
-                    ->live(),
-                  Forms\Components\Toggle::make('active')
-                    ->label('Activo'),
-                ]),
-                Split::make([
+                  Forms\Components\TextInput::make('name')
+                    ->translateLabel()
+                    ->required()
+                    ->maxLength(255),
                   Forms\Components\Select::make('user_id')
                     ->relationship('user', 'name')
-                    ->label('Vendedor')
-                    ->columnSpan(2)
+                    ->label('Seller')
+                    ->translateLabel()
                     ->required(),
                   Forms\Components\TextInput::make('price')
                     ->numeric()
-                    ->columnSpan(2)
+                    ->translateLabel()
                     ->prefix('€'),
+                ])->columnSpanFull(),
+                Split::make([
                   Forms\Components\TextInput::make('units')
-                    ->label('Unidades en Venta')
                     ->numeric()
-                    ->columnSpan(2),
+                    ->columnStart(3)
+                    ->translateLabel(),
                   Forms\Components\TextInput::make('descuento')
                     ->numeric()
-                    ->columnSpan(6)
+                    ->columnStart(4)
+                    ->translateLabel()
                     ->visible(fn(Get $get): bool => $get('oferta')),
-                ]),
+                  Forms\Components\TextInput::make('stars')
+                    ->numeric()
+                    ->columnSpan(1)
+                    ->translateLabel(),
+                  
+                  Forms\Components\Toggle::make('oferta')
+                    ->translateLabel()
+                    ->inline(false)
+                    ->live(),
+                  Forms\Components\Toggle::make('active')
+                    ->translateLabel()
+                    ->inline(false)
+                    ->label('Activo'),
+                ])
+                  ->columnSpanFull(),
                 TiptapEditor::make('description')
                   ->profile('default')
                   ->output(TiptapOutput::Html)
                   ->columnSpanFull(),
-                Forms\Components\FileUpload::make('images')
-                  ->directory('images/products')
-                  ->image()
-                  ->reorderable()
-                  ->openable()
-                  ->label('Añadir Imagen')
-                  ->imageEditor()
-                  ->appendFiles()
-                  ->columnSpanFull()
-                  ->panelLayout('grid')
-                  ->multiple(),
                 Repeater::make('features')
                   ->translateLabel()
                   ->relationship('featuretitles')
@@ -88,17 +88,29 @@
                   ->label('Detalles')
                   ->grid(2)
                   ->columnSpanFull(),
-                Forms\Components\Select::make('category_id')
-                  ->translateLabel()
-                  ->relationship('categories', 'name')
-                  ->reactive(), // Esto hace que al cambiar la categoría, se actualicen otros campos dinámicamente
-                Forms\Components\CheckboxList::make('tag_id')
-                  ->translateLabel()
-                  ->relationship('tags')
-                  ->options(fn(callable $get) => Tag::where('category_id', $get('category_id'))
-                    ->pluck('name', 'id')
-                  )
-                  ->columns(3)
+                Split::make([
+                  Forms\Components\FileUpload::make('images')
+                    ->directory('images/products')
+                    ->image()
+                    ->reorderable()
+                    ->openable()
+                    ->label('Añadir Imagen')
+                    ->imageEditor()
+                    ->appendFiles()//Invierte el orden en el array de imágenes
+                    ->panelLayout('grid')
+                    ->multiple(),
+                  Split::make([
+                    Forms\Components\Select::make('category_id')
+                      ->translateLabel()->columnSpan(2)
+                      ->relationship('categories', 'name')
+                      ->reactive(), // Esto hace que al cambiar la categoría, se actualicen otros campos dinámicamente
+                    Forms\Components\CheckboxList::make('tag_id')
+                      ->translateLabel()
+                      ->relationship('tags')
+                      ->options(fn(callable $get) => Tag::where('category_id', $get('category_id'))
+                        ->pluck('name', 'id')),
+                  ]),
+                ])->columnSpanFull()
               ]);
             
         }

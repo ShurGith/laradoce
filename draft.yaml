@@ -2,17 +2,19 @@ models:
   Product:
     name: string
     description: longtext nullable
+    images: string nullable
     features: longtext nullable
     price: integer nullable
     active: boolean default:1
     oferta: boolean default:0
     descuento: integer nullable
     units: integer nullable
-    images: json nullable
+    stars: integer nullable
     relationships:
       hasMany: Featuretitle
       belongsToMany: Tag, Category
       belongsTo: User
+
 
   # Imageproduct:
   #   img_path: string

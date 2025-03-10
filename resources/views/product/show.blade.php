@@ -24,15 +24,17 @@
     <!-- Product -->
     <div class="lg:grid lg:grid-cols-2 lg:items-start lg:gap-x-8">
       <!-- Image gallery -->
-      <div class="flex flex-col-reverse">
+      <div class="flex flex-col">
+        <!-- Imagen Principal -->
+        <div class="cursor-pointer" id="img-div" aria-labelledby="tabs-2-tab-1" role="tabpanel" tabindex="0">
+          <img src="{{ $product->getImgPal() }}" id="img-ppal" img-role="img-slider"
+               alt="{{$product->name . ' - imagen producto'}}"
+               class="aspect-square w-full sm:rounded-lg">
+        </div>
+        <!-- Fin Imagen Principal -->
         <!-- Image Thumbs -->
         <div class="mx-auto mt-6 hidden w-full max-w-2xl sm:block lg:max-w-none">
           <div class="grid grid-cols-4 gap-6" aria-orientation="horizontal" role="tablist">
-            {{--   @isset($product->images)
-                 @foreach($product->images as $image)
-                   <img src="{{  asset($image) }}" alt="{{$image}}">
-                 @endforeach
-            @endisset--}}
             @foreach($product->getThumbs() as $thumb)
               <button id=" tabs-2-tab-1"
                       class="relative flex h-24 cursor-pointer items-center justify-center rounded-md bg-white text-sm
@@ -51,13 +53,6 @@
           </div>
         </div>
         <!-- Fin Image Thumbs -->
-        <!-- Imagen Principal -->
-        <div class="cursor-pointer" id="img-div" aria-labelledby="tabs-2-tab-1" role="tabpanel" tabindex="0">
-          <img src="{{ $product->getImgPal() }}" id="img-ppal" img-role="img-slider"
-               alt="{{$product->name . ' - imagen producto'}}"
-               class="aspect-square w-full sm:rounded-lg">
-        </div>
-        <!-- Fin Imagen Principal -->
       </div>
       <!-- Product info -->
       <div class="mt-10 flex flex-col justify-center items-center gap-y-4 px-4 sm:mt-16 sm:px-0 lg:mt-0">
@@ -124,7 +119,7 @@
         @endif
         @include('components.partials.unidades')
       </div>
-      <!--  FinProduct info --->
+      <!--  FinProduct info -->
     </div>
   </section>
   <!-- ## Fin Sección Principal ## -->

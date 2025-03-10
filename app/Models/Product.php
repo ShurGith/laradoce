@@ -23,7 +23,8 @@
           'descuento',
           'units',
           'user_id',
-          'images'
+          'images',
+          'stars'
         ];
         
         protected $casts = [
@@ -32,12 +33,16 @@
           'oferta' => 'boolean',
           'user_id' => 'integer',
           'images' => 'array',
+          'stars' => 'integer'
         ];
         
         public function getImgPal()
         {
+            // if (isset($this->images)) {
             if (isset($this->images)) {
-                return asset($this->images[0]);
+                if (count($this->images) > 0) {
+                    return asset($this->images[0]);
+                }
             }
             return Avatar::create($this->name)->toBase64();
         }
@@ -68,11 +73,6 @@
             
         }
         
-        /*  public function imageproducts(): HasMany
-          {
-              return $this->hasMany(Imageproduct::class);
-          }
-          */
         public function featuretitles(): HasMany
         {
             return $this->hasMany(Featuretitle::class);
