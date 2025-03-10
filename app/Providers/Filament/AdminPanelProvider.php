@@ -3,7 +3,7 @@
     namespace App\Providers\Filament;
     
     use Agencetwogether\HooksHelper\HooksHelperPlugin;
-    use CharrafiMed\GlobalSearchModal\GlobalSearchModalPlugin;
+    use App\Filament\Pages\Auth\EditProfile;
     use Filament\Http\Middleware\Authenticate;
     use Filament\Http\Middleware\AuthenticateSession;
     use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -23,7 +23,6 @@
     use Illuminate\Session\Middleware\StartSession;
     use Illuminate\Support\Facades\Blade;
     use Illuminate\View\Middleware\ShareErrorsFromSession;
-    use Monzer\FilamentEmailVerificationAlert\EmailVerificationAlertPlugin;
     use RickDBCN\FilamentEmail\FilamentEmail;
     
     class AdminPanelProvider extends PanelProvider
