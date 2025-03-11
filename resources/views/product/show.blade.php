@@ -1,13 +1,14 @@
 <style>
-    .especificaciones {
+    [data-role="tab-info"] {
         display: grid;
         grid-template-rows: min-content 0fr;
         transition: grid-template-rows 500ms;
     }
 
-    .especificaciones.mostrado {
+    [data-role="tab-info"].mostrado {
         grid-template-rows: min-content 1fr;
     }
+
 
     #img-ppal {
         --s: 80px; /* corner size */
@@ -27,26 +28,24 @@
       <div class="flex flex-col">
         <!-- Imagen Principal -->
         <div class="cursor-pointer" id="img-div" aria-labelledby="tabs-2-tab-1" role="tabpanel" tabindex="0">
-          <img src="{{ $product->getImgPal() }}" id="img-ppal" img-role="img-slider"
+          <img src="{{ $product->getImgPal() }}" id="img-ppal" data-role="img-slider"
                alt="{{$product->name . ' - imagen producto'}}"
                class="aspect-square w-full sm:rounded-lg">
         </div>
         <!-- Fin Imagen Principal -->
         <!-- Image Thumbs -->
         <div class="mx-auto mt-6 hidden w-full max-w-2xl sm:block lg:max-w-none">
-          <div class="grid grid-cols-4 gap-6" aria-orientation="horizontal" role="tablist">
+          <div class="grid grid-cols-4 gap-6" aria-orientation="horizontal" data-role="tablist">
             @foreach($product->getThumbs() as $thumb)
-              <button id=" tabs-2-tab-1"
-                      class="relative flex h-24 cursor-pointer items-center justify-center rounded-md bg-white text-sm
+              <button class="relative flex h-24 cursor-pointer items-center justify-center rounded-md bg-white text-sm
               font-medium uppercase text-gray-900 hover:bg-gray-50 focus:outline-none focus:ring
-              focus:ring-indigo-500/50 focus:ring-offset-4"
-                      aria-controls="tabs-2-panel-1" role="tab" type="button">
+              focus:ring-indigo-500/50 focus:ring-offset-4" role="tab" type="button">
                 <span class="sr-only">Angled view</span>
                 <span
                   class="pointer-events-none absolute inset-0 rounded-md ring-2 ring-indigo-500 ring-transparent ring-offset-2"
                   aria-hidden="true"></span>
                 <span class="absolute inset-0 overflow-hidden rounded-md"> <img
-                    src="{{ asset( $thumb) }}" img-role="img-slider"
+                    src="{{ asset( $thumb) }}" data-role="img-slider"
                     alt="{{$thumb}}" class="size-full object-cover"> </span>
               </button>
             @endforeach
@@ -129,11 +128,11 @@
     <div>
       <h2 id="details-heading" class="pb-2">{{ __('Additional details') }}</h2>
       @foreach($product->featuretitles as $feature)
-        <div
-          class="border-t-gray-200 border-t pb-4 overflow-hidden especificaciones transition ease-linear duration-1500 ">
+        <div data-role="tab-info"
+             class="border-t-gray-200 border-t pb-4 overflow-hidden transition ease-linear duration-1500">
           <button type="button"
                   class="cursor-pointer group relative flex w-full items-center justify-between py-2 my-4 "
-                  aria-controls="disclosure-1" aria-expanded="false">
+                  data-role="button" aria-expanded="false">
             <h3 class="text-sm font-medium pl-4 text-gray-900"> {{ $feature->title }}</h3>
             <span class="ml-6 flex items-center mr-4">
                       <svg class="block size-6 text-gray-400 group-hover:text-gray-500" fill="none"
@@ -203,15 +202,15 @@
 </x-layouts.app>
 
 <!-- Modal Imagen -->
-<div class="relative -z-10 transition-all ease-out duration-300 opacity-0" aria-label="modal-image" role="dialog"
+<div class="relative -z-10 transition-all ease-out duration-300 opacity-0" data-role="modal-image" role="dialog"
      aria-modal="true">
   <div class="fixed inset-0 bg-gray-500/95 transition-opacity" aria-hidden="true"></div>
   <div class="fixed w-full inset-0 z-10 w-screen">
-    <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0" role="fondo">
+    <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0" data-role="fondo">
       <div
         class="relative w-full min-w-1/2 overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl sm:my-8 sm:w-full sm:max-w-lg sm:p-6"
         role="no-cerrar">
-        <x-heroicon-c-x-mark class="h-10 w-10 cursor-pointer" id="closeModal"/>
+        <x-heroicon-c-x-mark class="z-10 h-10 w-10 cursor-pointer" id="closeModal"/>
         <img class="size-full object-contain" src="" role="no-cerrar">
       </div>
     </div>

@@ -1,6 +1,6 @@
 models:
   Product:
-    name: string
+    name: string index
     description: longtext nullable
     images: string nullable
     features: longtext nullable
@@ -11,7 +11,7 @@ models:
     units: integer nullable
     stars: integer nullable
     relationships:
-      hasMany: Featuretitle
+      hasMany: Featuretitleas
       belongsToMany: Tag, Category
       belongsTo: User
 
@@ -24,7 +24,7 @@ models:
   #     belongsTo: Product
 
   Featuretitle:
-    title: string
+    title: string index
     text: longtext
     timestamps: false
     relationships:
@@ -32,7 +32,7 @@ models:
       #hasMany: Featureproduct
 
   Generaloptions:
-    name: string
+    name: string index
     active: string
     timestamps: false
 
@@ -43,7 +43,7 @@ models:
   #      belongsTo: Featuretitle
 
   Category:
-    name: string
+    name: string index
     bgcolor: text nullable
     color: string nullable
     image: text nullable
@@ -54,7 +54,7 @@ models:
       hasMany: Tag
 
   Tag:
-    name: string
+    name: string index
     bgcolor: text nullable
     color: string nullable
     image: text nullable

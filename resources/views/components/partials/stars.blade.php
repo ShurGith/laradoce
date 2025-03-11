@@ -1,11 +1,7 @@
-<div class="mt-3 mx-auto">
+</style>
+<div class="group/item mt-3 mx-auto relative flex">
   <h3 class="sr-only">Reviews</h3>
-  <div class="flex items-center justify-center">
-    @for($i=0; $i<$product->stars; $i++)
-      <x-heroicon-m-star class="size-5 shrink-0 text-yellow-400"></x-heroicon-m-star>
-    @endfor
-    @for($i=0; $i<(5-$product->stars); $i++)
-      <x-heroicon-o-star class="size-5 shrink-0 text-gray-300"></x-heroicon-o-star>
-    @endfor
-  </div>
+  <span
+    class="opacity-0 transition-all duration-300 group-hover/item:opacity-100 absolute px-2 py-1 rounded text-xs text-white bg-black bottom-4 -right-8 ">{{ __('Rating:') }} {{ $product->stars / 10 }}</span>
+  {!!  $product->getStars() !!}
 </div>

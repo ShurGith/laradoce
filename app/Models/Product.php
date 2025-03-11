@@ -114,4 +114,35 @@
             return number_format($valor / 100, 2, "'", ".");
         }
         
+        public function getStars()
+        {
+            $salida = "";
+            $quitaUno = 0;
+            $stars = $this->stars;
+            $starFull = config('url')."/images/page/star-full.svg";
+            $starHalf = config('url')."/images/page/star-half.svg";
+            $starEmpty = config('url')."/images/page/star-empty.svg";
+            $decimales = intval(substr($stars, -1));
+            $enteros = intval(substr($stars, 0, 1));
+            for ($i = 0; $i < $enteros; $i++) {
+                $salida .= "<img src=$starFull>";
+            }
+            if ($decimales > 0) {
+                $salida .= "<img src=$starHalf>";
+                $quitaUno = 1;
+            }
+            if ($enteros + 1 < 5) {
+                for ($i = 0; $i < 5 - $enteros - $quitaUno; $i++) {
+                    $salida .= "<img src=$starEmpty>";
+                }
+            }
+            if ($enteros + $quitaUno > 0) {
+                return $salida;
+            }
+        }
+        
+        public function getAltStars()
+        {
+            
+        }
     }

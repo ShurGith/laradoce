@@ -61,7 +61,10 @@
                     ->translateLabel()
                     ->visible(fn(Get $get): bool => $get('oferta')),
                   Forms\Components\TextInput::make('stars')
-                    ->numeric()
+                    ->integer()
+                    ->step(5)
+                    ->minValue(20)
+                    ->maxValue(50)
                     ->columnSpan(1)
                     ->translateLabel(),
                   Forms\Components\Toggle::make('oferta')
