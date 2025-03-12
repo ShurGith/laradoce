@@ -80,6 +80,11 @@
             return $this->hasMany(Featuretitle::class);
         }
         
+        public function buyer(): HasMany
+        {
+            return $this->hasMany(Order::class);
+        }
+        
         public function tags(): BelongsToMany
         {
             return $this->belongsToMany(Tag::class);
@@ -88,6 +93,11 @@
         public function categories(): BelongsToMany
         {
             return $this->belongsToMany(Category::class);
+        }
+        
+        public function seller(): BelongsTo
+        {
+            return $this->belongsTo(Order::class);
         }
         
         public function user(): BelongsTo
@@ -125,15 +135,15 @@
             $decimales = intval(substr($stars, -1));
             $enteros = intval(substr($stars, 0, 1));
             for ($i = 0; $i < $enteros; $i++) {
-                $salida .= "<img src=$starFull>";
+                $salida .= "<img src=$starFull style='width:18px; height:18px'>";
             }
             if ($decimales > 0) {
-                $salida .= "<img src=$starHalf>";
+                $salida .= "<img src=$starHalf style='width:18px; height:18px'>";
                 $quitaUno = 1;
             }
             if ($enteros + 1 < 5) {
                 for ($i = 0; $i < 5 - $enteros - $quitaUno; $i++) {
-                    $salida .= "<img src=$starEmpty>";
+                    $salida .= "<img src=$starEmpty style='width:16px; height:16px'>";
                 }
             }
             if ($enteros + $quitaUno > 0) {
@@ -141,8 +151,4 @@
             }
         }
         
-        public function getAltStars()
-        {
-            
-        }
     }

@@ -11,6 +11,8 @@
     use Filament\Forms\Components\TextInput;
     use Filament\Forms\Form;
     use Filament\Forms\Get;
+    use Filament\Infolists\Components\Tabs;
+    use Filament\Infolists\Infolist;
     use Filament\Resources\Resource;
     use Filament\Support\Enums\FontFamily;
     use Filament\Support\Enums\FontWeight;
@@ -29,7 +31,6 @@
         protected static ?string $navigationGroup = 'Productos';
         protected static ?string $modelLabel = 'producto';
         protected static ?string $navigationLabel = 'Productos en venta';
-        
         
         public static function form(Form $form): Form
         {
@@ -179,7 +180,7 @@
                   ->label('Seller')
                   ->translateLabel()
                   ->icon('heroicon-m-user')
-                  ->toggleable(isToggledHiddenByDefault: true),
+                  ->toggleable(isToggledHiddenByDefault: false),
                 TextColumn::make('created_at')
                   ->dateTime()
                   ->sortable()
@@ -193,8 +194,9 @@
                   //
               ])
               ->actions([
-                Tables\Actions\EditAction::make()
+                Tables\Actions\EditAction::make(),
                   // ->slideOver(),
+                Tables\Actions\ViewAction::make(),
               ])
               ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -214,9 +216,35 @@
         {
             return [
               'index' => Pages\ListProducts::route('/'),
-                //'create' => Pages\CreateProduct::route('/create'),
+              'create' => Pages\CreateProduct::route('/create'),
               'edit' => Pages\EditProduct::route('/{record}/edit'),
+            
             ];
+        }
+        
+        
+        public function productInfolist(Infolist $infolist): Infolist
+        {
+            return $infolist
+              // ->record($this->product)
+              ->schema([
+                Tabs::make('Tabs')
+                  ->tabs([
+                    Tabs\Tab::make('Tab 1')
+                      ->schema([
+                          // ...
+                      ]),
+                    Tabs\Tab::make('Tab 2')
+                      ->schema([
+                          // ...
+                      ]),
+                    Tabs\Tab::make('Tab 3')
+                      ->schema([
+                          // ...
+                      ]),
+                  ])
+                  // ...
+              ]);
         }
         
         

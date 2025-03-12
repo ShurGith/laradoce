@@ -81,6 +81,8 @@
                   ->formatStateUsing(fn($record) => verificado($record) ? "Verificado" : "Pendiente"),
                 Tables\Columns\TextColumn::make('email')
                   ->searchable(),
+                  /*          Tables\Columns\TextColumn::make('purchases.product_id'),
+                            Tables\Columns\TextColumn::make('sales.product_id'),*/
                 Tables\Columns\TextColumn::make('created_at')
                   ->dateTime()
                   ->sortable()

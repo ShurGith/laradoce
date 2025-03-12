@@ -1,4 +1,3 @@
-</style>
 <div class="group/item mt-3 mx-auto relative flex">
   <h3 class="sr-only">Reviews</h3>
   <span

@@ -38,10 +38,21 @@
             // return str_ends_with($this->email, '@gmail.com') && $this->hasVerifiedEmail();
         }
         
-        
         public function isAdmin(): bool
         {
             return $this->id === 1;
+        }
+        
+        // Relación con órdenes como comprador
+        public function purchases(): HasMany
+        {
+            return $this->hasMany(Order::class, 'buyer_id');
+        }
+        
+        // Relación con órdenes como vendedor
+        public function sales(): HasMany
+        {
+            return $this->hasMany(Order::class, 'seller_id');
         }
         
         public function getFilamentAvatarUrl(): ?string
