@@ -88,8 +88,6 @@
                      class="transform duration-300 opacity-0 scale-95 absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black/5 focus:outline-none"
                      role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button"
                      tabindex="-1">
-                  <!-- Active: "bg-gray-100 outline-none", Not Active: "" -->
-                  
                   <div class="flex flex-col items-start justify-start gap-2 my-2">
                     <a href="{{ route('settings.profile') }}" class="flex gap-1 pl-4 text-sm text-gray-700"
                        role="menuitem" tabindex="-1"
@@ -214,8 +212,9 @@
     </div>
   </div>
   
-  <div id="flashMessage" class="absolute w-1/3 right-0 flex justify-end items-end overflow-x-hidden ">
-    <div class=" flex justify-center transition-all duration-500 translate-x-full">
+  <div id="flashMessage"
+       class="fixed w-full flex top-20 justify-end items-end overflow-x-hidden ">
+    <div class=" flex justify-center translate-x-full transition-all duration-500">
       @include('components.layouts.flash-messages')
       @if(strpos($_SERVER['REQUEST_URI'], '/products/') !== false)
         <x-layouts.flash-unic :message="$message"/>

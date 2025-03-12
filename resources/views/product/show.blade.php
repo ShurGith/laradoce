@@ -17,6 +17,7 @@
         border-radius: 15px;
         mask: conic-gradient(at var(--s) var(--s), #0000 75%, #000 0) 0 0/calc(100% - var(--s)) calc(100% - var(--s)),
         conic-gradient(#000 0 0) content-box;
+        height: 550px;
     }
 </style>
 <x-layouts.app :meta-title="$product->name" :header-text="$product->name">
@@ -27,10 +28,10 @@
       <!-- Image gallery -->
       <div class="flex flex-col">
         <!-- Imagen Principal -->
-        <div class="cursor-pointer" id="img-div" aria-labelledby="tabs-2-tab-1" role="tabpanel" tabindex="0">
+        <div class="cursor-pointer " id="img-div">
           <img src="{{ $product->getImgPal() }}" id="img-ppal" data-role="img-slider"
                alt="{{$product->name . ' - imagen producto'}}"
-               class="aspect-square w-full sm:rounded-lg">
+               class="aspect-auto object-cover w-full sm:rounded-lg">
         </div>
         <!-- Fin Imagen Principal -->
         <!-- Image Thumbs -->

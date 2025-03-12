@@ -151,4 +151,8 @@
             }
         }
         
+        public function getHayOferta()
+        {
+            return ($this->oferta && $this->descuento) ?? false;
+        }
     }
