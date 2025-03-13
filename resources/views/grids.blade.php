@@ -1,4 +1,5 @@
 <x-layouts.app>
+  zdsf
   <style>
       :root {
           --clr-dark: #0f172a;
