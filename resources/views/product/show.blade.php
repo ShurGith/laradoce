@@ -9,33 +9,31 @@
         grid-template-rows: min-content 1fr;
     }
 
-
-    #img-ppal {
+    #marco {
         --s: 80px; /* corner size */
-        padding: 5px; /* the gap */
+        padding: 15px; /* the gap */
         border: 8px solid #69D2E7;
         border-radius: 15px;
         mask: conic-gradient(at var(--s) var(--s), #0000 75%, #000 0) 0 0/calc(100% - var(--s)) calc(100% - var(--s)),
         conic-gradient(#000 0 0) content-box;
-        height: 550px;
     }
 </style>
 <x-layouts.app :meta-title="$product->name" :header-text="$product->name">
   <!-- ## Sección Principal ## -->
   <section class="mx-auto max-w-2xl lg:max-w-none">
     <!-- Product -->
-    <div class="lg:grid lg:grid-cols-2 lg:items-start lg:gap-x-8">
+    <div class="lg:grid lg:grid-cols-[65%_35%] lg:items-start">
       <!-- Image gallery -->
-      <div class="flex flex-col">
-        <!-- Imagen Principal -->
-        <div class="cursor-pointer " id="img-div">
-          <img src="{{ $product->getImgPal() }}" id="img-ppal" data-role="img-slider"
-               alt="{{$product->name . ' - imagen producto'}}"
-               class="aspect-auto object-cover w-full sm:rounded-lg">
+      <div class="flex flex-col pr-2">
+        <div id="marco">
+          <div id="img-div"
+               class="cursor-pointer rounded-xl w-full min-w-full h-96 bg-cover  bg-no-repeat h-[580px] aspect-auto object-cover"
+               style="background-image:url( {{ $product->getImgPal() }});">
+          </div>
         </div>
         <!-- Fin Imagen Principal -->
         <!-- Image Thumbs -->
-        <div class="mx-auto mt-6 hidden w-full max-w-2xl sm:block lg:max-w-none">
+        <div class="mt-6 hidden w-full max-w-2xl sm:block lg:max-w-none">
           <div class="grid grid-cols-4 gap-6" aria-orientation="horizontal" data-role="tablist">
             @foreach($product->getThumbs() as $thumb)
               <button class="relative flex h-24 cursor-pointer items-center justify-center rounded-md bg-white text-sm
@@ -55,7 +53,7 @@
         <!-- Fin Image Thumbs -->
       </div>
       <!-- Product info -->
-      <div class="mt-10 flex flex-col justify-center items-center gap-y-4 px-4 sm:mt-16 sm:px-0 lg:mt-0">
+      <div class="pt-12 flex flex-col justify-center items-center gap-y-4 px-4 sm:mt-16 sm:px-0 lg:mt-0">
         <h1 class="text-5xl mb-4 font-bold tracking-tight text-gray-900">{{ $product->name }}</h1>
         <!-- Precio -->
         @include('components.partials.precios' ,[ "textFinal" => "text-3xl"])
